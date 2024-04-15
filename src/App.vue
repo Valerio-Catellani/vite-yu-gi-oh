@@ -27,6 +27,7 @@ export default {
   methods: {
     getCards(numbers) {
       axios.get(store.base_url + `num=${numbers}&offset=0&`).then((response) => {
+        console.log(response.data.data);
         this.store.cards = response.data.data;
       })
     }

@@ -1,12 +1,17 @@
 <template>
-    <main>
+    <main> ciao
+        <CardList />
         ciao
     </main>
 </template>
 
 <script>
+import CardList from './CardList.vue'
 export default {
     name: 'MainComponent',
+    components: {
+        CardList
+    }
 }
 </script>
 
