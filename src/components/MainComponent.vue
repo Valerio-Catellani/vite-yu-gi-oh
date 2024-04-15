@@ -1,7 +1,7 @@
 <template>
-    <main> ciao
+    <main class="py-5 px-1">
         <CardList />
-        ciao
+
     </main>
 </template>
 

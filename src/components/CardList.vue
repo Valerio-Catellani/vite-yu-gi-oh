@@ -1,6 +1,5 @@
 <template>
-    <div class="container d-flex flex-wrap justify-content-center ">
-
+    <div class="container d-flex flex-wrap justify-content-center py-5 my-5">
         <CardComponent v-for="card in store.cards" :key="card.id" :card="card" />
     </div>
 </template>

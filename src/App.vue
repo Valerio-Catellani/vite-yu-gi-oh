@@ -33,7 +33,7 @@ export default {
     }
   },
   created() {
-    this.getCards(20)
+    this.getCards(200)
   }
 }
 </script>

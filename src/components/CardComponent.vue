@@ -1,30 +1,62 @@
 <template>
-    <div :id="card.id" class="personal-card d-flex m-3 ">
-        <div class="img-container">
-            <img :src="card.card_images[0].image_url" class="card-img-top img-fluid" :alt="card.name">
+    <div :id="card.id" class="personal-card m-2 shadow p-1" :class="card.frameType">
+        <div class="" :class="card.frameType === 'xyz' || card.frameType === 'link' ? 'text-white' : ''">
+            <h3 class="text-center fs-5 py-1 mb-0">{{ card.name }}</h3>
+            <p class="text-center  border-black border-bottom shadow mb-1">{{ card.type }} ({{ card.race }})</p>
         </div>
-        <div class="info-container p-2">
-            <div class="card-body">
-                <h3 class="text-center border-black border-bottom fs-5">{{ card.name }}</h3>
-                <h6 class="card-type">{{ card.type }} ({{ card.race }})</h6>
-                <p class="card-text bg-white p-1 overflow-y-auto">{{ card.desc }}</p>
-                <p v-if="isAMonster" class="fw-bold mb-0 border-black border-bottom">ATK/ {{ card.atk }} DEF/ {{
-                    card.def }}</p>
-                <div v-if="isAMonster" class="d-flex align-items-center">
-                    <p class="mb-0">level:</p>
-                    <div class="level-number-container ms-2 d-none">{{ card.level }}</div>
-                    <div class="lv-icon-container d-flex ms-2">
-                        <img v-for="i in card.level" :key="i" class="img-fluid w-100" src="/images/level.png"
-                            alt="level">
+
+        <div class=" d-flex">
+            <div class="img-container d-flex align-items-center">
+                <img :src="card.card_images[0].image_url" class="card-img-top img-fluid" :alt="card.name">
+            </div>
+            <div class="info-container p-2">
+                <div class="card-body"
+                    :class="card.frameType === 'xyz' || card.frameType === 'link' ? 'text-white' : ''">
+
+                    <p class="card-text bg-dark-subtle p-1 overflow-y-auto text-dark rounded-1">{{ card.desc }}</p>
+                    <p v-if="isAMonster" class="fw-bold mb-0 border-black border-bottom">ATK/ {{ card.atk }} DEF/ {{
+                        card.def }}</p>
+                    <div v-if="isAMonster" class="d-flex align-items-center">
+                        <p class="mb-0 fw-bold">
+                            level:
+                        </p>
+                        <div class="level-number-container ms-2 d-none">{{ card.level }}</div>
+                        <div class="lv-icon-container d-flex ms-2">
+                            <img v-for="i in card.level" :key="i" class="img-fluid w-100" src="/images/level.png"
+                                alt="level">
+                        </div>
+                    </div>
+                    <p v-if="isAMonster" class="mb-0"><span class="fw-bold">Attribute: </span>{{ card.attribute }}</p>
+                    <p v-if="isAMonster" class="mb-0"><span class="fw-bold">Type: </span> <span class="small">{{
+                        card.race }}/{{
+                                formatText(card.frameType)
+                            }}</span></p>
+                    <p v-if="card.archetype" class="mb-0"><span class="fw-bold">ArcheType: </span> <span
+                            class="fs-italic">{{ card.archetype }}</span></p>
+                </div>
+                <div class="card-body mt-2">
+                    <span role="button" :class="marketIsOpen ? 'text-success' : 'text-white'"
+                        @click="toggleMarket()">Click
+                        for
+                        Prices</span>
+                    <div v-if="marketIsOpen"
+                        class="prices-container bg-white position position-absolute border border-black p-1 rounded-1"
+                        @blur="marketIsOpen = false" tabindex="0">
+                        <ul class="list-unstyled">
+                            <li v-for="(price, value) in card.card_prices[0]" :key="price">
+                                <a href="#" @click.prevent>{{ formatText(value) }}</a>: {{ price != 0 ? price
+                                    + '€'
+                                    :
+                                    'N/A'
+                                }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <p v-if="isAMonster" class="mb-0">Attribute: {{ card.attribute }}</p>
-                <p v-if="isAMonster">Type: {{ card.race }}/{{ card.frameType }}</p>
-            </div>
-            <div class="card-body">
-                <span>Cost: </span><a href="#" class="card-link">{{ card.card_prices[0].cardmarket_price }}</a>
             </div>
         </div>
+
+
 
     </div>
 
@@ -34,17 +66,79 @@
 export default {
     name: 'CardComponent',
     props: ['card'],
+    data() {
+        return {
+            marketIsOpen: false
+        }
+    },
     computed: {
         isAMonster() {
             return this.card.type.includes('Monster');
+        },
+    },
+    methods: {
+        formatText(inputString) {
+            let words = inputString.split('_');
+            words = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+            return words.join(' ');
+        },
+        toggleMarket() {
+            this.marketIsOpen = !this.marketIsOpen
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@use '../assets/styles/partials/variables' as *;
+
+.effect {
+    background-color: $monster-effect-background-color;
+}
+
+.normal {
+    background-color: $monster-normal-background-color;
+}
+
+.fusion {
+    background-color: $monster-fusion-background-color;
+}
+
+.effect_pendulum {
+    background-image: $monster-pendulum-background-color;
+}
+
+.link {
+    background-color: $monster-link-background-color;
+}
+
+.xyz {
+    background-color: $monster-xyz-background-color;
+}
+
+.ritual {
+    background-color: $monster-ritual-background-color;
+}
+
+.spell {
+    background-color: $magic-background-color;
+}
+
+.trap {
+    background-color: $trap-background-color;
+}
+
+.synchro {
+    background-color: $monster-sincro-background-color;
+}
+
+
+
+
+
+
 .personal-card {
-    max-width: 500px;
+    max-width: 400px;
     border: solid 1px black;
 
     .img-container {
@@ -69,8 +163,8 @@ export default {
         }
 
         .lv-icon-container {
-            width: 15px;
-            height: 15px;
+            width: 10px;
+            height: 10px;
         }
     }
 

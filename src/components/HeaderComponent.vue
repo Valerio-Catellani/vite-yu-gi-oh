@@ -31,5 +31,6 @@ export default {
 <style lang="scss" scoped>
 .img-container {
     width: 7%;
+    min-width: 100px;
 }
 </style>
