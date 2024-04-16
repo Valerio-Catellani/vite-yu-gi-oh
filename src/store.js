@@ -83,11 +83,11 @@ export const methodsStore = {
     getCardsByName(info) {
         store.isLoading = true;
         store.userSearch = info;
-
         store.cards = []
         if (info) {
             axios.get(store.base_url + store.card_list)
                 .then((response) => {
+
                     let CardsTmp = [];
                     response.data.data.forEach(element => {
                         if (element.name.includes(info)) {
@@ -95,7 +95,7 @@ export const methodsStore = {
                         }
                     })
                     store.cards = this.formatCardList(CardsTmp)
-                    console.log(store.cards);;
+                    store.totalCards = CardsTmp.length
                 })
                 .catch((error) => {
                     store.cards = [];

@@ -10,7 +10,8 @@
             </div>
             <div class="button-collection d-flex align-items-center gap-5 justify-content-center">
                 <button class="btn btn-light btn-outline-primary shadow" type="submit"
-                    @click.prevent="this.methodsStore.getCardsByName(userSearch)">Search</button>
+                    @click.prevent="this.methodsStore.getCardsByName(userSearch)"
+                    :disabled="!userSearch">Search</button>
             </div>
         </form>
     </div>
@@ -42,7 +43,7 @@ export default {
         userMsg() {
             if (this.store.totalCards > 100) {
                 return `Found ${this.store.totalCards} cards. Only viewed 100.`
-            } else if (this.store.totalCards === 0) {
+            } else if (this.store.totalCards === 0 || this.userSearch) {
                 return `No cards found.`
             } else {
                 return `Found ${this.store.totalCards} cards.`
