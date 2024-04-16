@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-white" @click="console.log(store.userSearch)">
+    <header class="bg-white border-bottom border-black">
         <div class="container">
             <nav class="d-flex align-items-center p-1">
                 <div class="img-container">

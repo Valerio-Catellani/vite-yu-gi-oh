@@ -90,7 +90,7 @@ export const methodsStore = {
 
                     let CardsTmp = [];
                     response.data.data.forEach(element => {
-                        if (element.name.includes(info)) {
+                        if (element.name.toLowerCase().includes(info)) {
                             CardsTmp.push(element)
                         }
                     })
