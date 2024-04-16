@@ -4,15 +4,13 @@
             <h3 class="text-center fs-5 py-1 mb-0">{{ card.name }}</h3>
             <p class="text-center  border-black border-bottom shadow mb-1">{{ card.type }} ({{ card.race }})</p>
         </div>
-
         <div class=" d-flex">
             <div class="img-container d-flex align-items-center">
-                <img :src="card.card_images[0].image_url" class="card-img-top img-fluid" :alt="card.name">
+                <img :src="card.image" class="card-img-top img-fluid" :alt="card.name">
             </div>
             <div class="info-container p-2">
                 <div class="card-body"
                     :class="card.frameType === 'xyz' || card.frameType === 'link' ? 'text-white' : ''">
-
                     <p class="card-text bg-dark-subtle p-1 overflow-y-auto text-dark rounded-1">{{ card.desc }}</p>
                     <p v-if="isAMonster" class="fw-bold mb-0 border-black border-bottom">ATK/ {{ card.atk }} DEF/ {{
                         card.def }}</p>
@@ -43,7 +41,7 @@
                         class="prices-container bg-white position position-absolute border border-black p-1 rounded-1"
                         @blur="marketIsOpen = false" tabindex="0">
                         <ul class="list-unstyled">
-                            <li v-for="(price, value) in card.card_prices[0]" :key="price">
+                            <li v-for="(price, value) in card.cardPrice[0]" :key="price">
                                 <a href="#" @click.prevent>{{ formatText(value) }}</a>: {{ price != 0 ? price
                                     + '€'
                                     :
@@ -90,7 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '../assets/styles/partials/variables' as *;
+@use '../../assets/styles/partials/variables' as *;
 
 .effect {
     background-color: $monster-effect-background-color;
@@ -131,11 +129,6 @@ export default {
 .synchro {
     background-color: $monster-sincro-background-color;
 }
-
-
-
-
-
 
 .personal-card {
     max-width: 400px;

@@ -24,7 +24,7 @@ export default {
         async splashPageDisappear() {
             try {
                 while (this.opacity > 0) {
-                    await new Promise(resolve => setTimeout(resolve, 8)); // 
+                    await new Promise(resolve => setTimeout(resolve, 8));
                     this.opacity -= 1;
                 }
             } catch (error) {
