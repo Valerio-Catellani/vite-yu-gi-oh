@@ -1,5 +1,6 @@
 <template>
-    <div class="container d-flex flex-wrap justify-content-center py-5 my-5">
+    <div v-if="store.cards.length > 0" class="container d-flex flex-wrap justify-content-center py-5 my-5"
+        @click="console.log(store.cards)">
         <CardComponent v-for="element in store.cards" :key="element.card.id" :card="element.card" />
     </div>
 </template>

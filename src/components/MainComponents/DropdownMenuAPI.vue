@@ -9,21 +9,22 @@
                 <li v-for="key in Object.keys(menu.menuList)" :key="key" class="dropdown-item position-relative">{{
                     key }}
                     <ul class="sub-menu dropdown-menu show position-absolute">
-                        <li v-for="element in menu.menuList[key]" :key="element" class="dropdown-item" role="button"
-                            @click="methods.findElementByArchetype(element.archetype_name)">{{
+                        <li v-for="element in menu.menuList[key]" :key="element" class="dropdown-item small"
+                            role="button" @click="searchCards(element.archetype_name, menu.menuName)">{{
                                 element.archetype_name }}
                         </li>
                     </ul>
                 </li>
             </template>
-            <li v-else v-for="element in menu.menuList" :key="element" class="dropdown-item">{{ element }}</li>
+            <li v-else v-for="element in menu.menuList" :key="element" class="dropdown-item small" role="button"
+                @click="searchCards(element, menu.menuName)">{{ element }}</li>
         </ul>
     </div>
 </template>
 
 <script>
 //Object.keys(menu.menuList)
-import { store, methods } from '../../store.js';
+import { store, methodsStore } from '../../store.js';
 
 export default {
     name: 'DropdownMenuAPI',
@@ -31,10 +32,18 @@ export default {
     data() {
         return {
             store,
-            methods,
+            methodsStore,
             isOpen: false,
         }
     },
+    methods: {
+        searchCards(parameter, operation) {
+            operation === 'Archetype' ? this.methodsStore.findElementByArchetype(parameter) : operation === 'Race' ? this.methodsStore.findElementBy(parameter, 'race') : this.methodsStore.findElementBy(parameter, 'type');
+            this.isOpen = false
+            this.store.userSearch = parameter
+        },
+
+    }
 
 
 }

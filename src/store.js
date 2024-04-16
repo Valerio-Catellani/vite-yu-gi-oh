@@ -18,11 +18,6 @@ export const store = reactive({
         archetypeMenu: {
             menuName: 'Archetype',
             menuList: {
-                a: [
-                    'primo',
-                    'seconsdo',
-                    'ternzo'
-                ]
             }
         },
         raceMenu: {
@@ -34,22 +29,36 @@ export const store = reactive({
             menuList: []
         }
     },
-    isLoading: false
+    isLoading: false,
+    userSearch: '',
+    totalCards: null
 })
 
 
-export const methods = {
+export const methodsStore = {
     findElementByArchetype(el) {
-        console.log(el)
-        console.log(store.base_url);
-        console.log(store.search_by_archetype + el);
         store.isLoading = true
         axios.get(store.base_url + store.card_list + store.search_by_archetype + el).then((response) => {
-            store.cards = methods.formatCardList(response.data.data);
+            store.totalCards = response.data.data.length
+            store.cards = (methodsStore.formatCardList(response.data.data)).slice(0, 100);
+        }).catch((error) => {
+            console.log(error);
+        }).finally(() => {
+            store.isLoading = false
+        })
+    },
+    findElementBy(el, params) {
+        store.isLoading = true
+        axios.get(store.base_url + store.card_list + `?${params}=` + el).then((response) => {
+            store.totalCards = response.data.data.length
+            store.cards = methodsStore.formatCardList(response.data.data).slice(0, 100);
+        }).catch((error) => {
+            console.log(error);
+        }).finally(() => {
+            store.isLoading = false
         })
     },
     formatCardList(cardList) {
-        console.log(cardList);
         let formattedCardList = cardList.map(element => {
             return {
                 card: {
@@ -70,6 +79,35 @@ export const methods = {
             }
         })
         return formattedCardList;
-    }
+    },
+    getCardsByName(info) {
+        store.isLoading = true;
+        store.userSearch = info;
+
+        store.cards = []
+        if (info) {
+            axios.get(store.base_url + store.card_list)
+                .then((response) => {
+                    let CardsTmp = [];
+                    response.data.data.forEach(element => {
+                        if (element.name.includes(info)) {
+                            CardsTmp.push(element)
+                        }
+                    })
+                    store.cards = this.formatCardList(CardsTmp)
+                    console.log(store.cards);;
+                })
+                .catch((error) => {
+                    store.cards = [];
+                    store.totalCards = 'No cards found';
+                    console.log(error);
+                })
+                .finally(() => {
+                    store.isLoading = false
+                })
+        }
+    }, /// da rivedere
+
 
 }
+

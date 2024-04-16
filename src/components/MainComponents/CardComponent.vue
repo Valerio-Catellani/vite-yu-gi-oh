@@ -130,6 +130,19 @@ export default {
     background-color: $monster-sincro-background-color;
 }
 
+.normal_pendulum {
+    background-image: $monster-pendulum-normal-background-color;
+}
+
+.xyz_pendulum {
+    background-image: $monster-pendulum-xyz-background-color;
+    color: white;
+}
+
+.fusion_pendulum {
+    background-image: $monster-pendulum-fusion-background-color;
+}
+
 .personal-card {
     max-width: 400px;
     border: solid 1px black;

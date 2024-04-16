@@ -10,6 +10,6 @@ export default {
 
 <style lang="scss" scoped>
 i {
-    margin: 100px auto
+    margin: 200px auto
 }
 </style>

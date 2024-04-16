@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-white">
+    <header class="bg-white" @click="console.log(store.userSearch)">
         <div class="container">
             <nav class="d-flex align-items-center p-1">
                 <div class="img-container">
@@ -10,30 +10,34 @@
         </div>
 
     </header>
-    <div v-if="userSearch" class="bg-primary-subtle text-dark fst-italic px-3 py-2">
+    <div v-if="store.userSearch" class="bg-primary-subtle text-dark fst-italic px-3 py-2 ">
+        <div class="container">Your results are filtered by: {{
+            store.userSearch }}
+            <i class="fa-solid fa-xmark" role="button" @click="reset"></i>
+        </div>
 
-        Your results are filtered by: {{
-            userSearch }}
-        <i class="fa-solid fa-xmark" role="button" @click="search('')"></i>
+
     </div>
 </template>
 
 <script>
+import { store } from '../store.js';
 export default {
     name: 'HeaderComponent',
     data() {
         return {
             userInput: '',
-            userSearch: ''
+            store,
         }
     },
-    emits: ['search'],
+    emits: ['reset'],
     methods: {
-        search(input) {
-            this.userSearch = input;
-            this.$emit('search', this.userSearch)
-        }
-    }
+        reset() {
+            store.userSearch = ''
+            this.$emit('reset', this.userSearch)
+        },
+
+    },
 }
 </script>
 
