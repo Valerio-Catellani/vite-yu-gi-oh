@@ -143,6 +143,14 @@ export default {
     background-image: $monster-pendulum-fusion-background-color;
 }
 
+.skill {
+    background-image: $skillcard-background-color;
+}
+
+.token {
+    background-color: $token-background-color;
+}
+
 .personal-card {
     max-width: 400px;
     border: solid 1px black;
