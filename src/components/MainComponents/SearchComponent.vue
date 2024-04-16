@@ -15,7 +15,7 @@
             </div>
         </form>
     </div>
-    <div v-if="store.totalCards" class="search-bar bg-danger-subtle text-dark fst-italic px-3 py-2 rounded-bottom-2">
+    <div class="search-bar bg-danger-subtle text-dark fst-italic px-3 py-2 rounded-bottom-2">
         <div class="container">{{
             userMsg }}
         </div>
@@ -43,7 +43,7 @@ export default {
         userMsg() {
             if (this.store.totalCards > 100) {
                 return `Found ${this.store.totalCards} cards. Only viewed 100.`
-            } else if (this.store.totalCards === 0 || this.userSearch) {
+            } else if (this.store.totalCards === 0 || this.store.cards.length === 0) {
                 return `No cards found.`
             } else {
                 return `Found ${this.store.totalCards} cards.`

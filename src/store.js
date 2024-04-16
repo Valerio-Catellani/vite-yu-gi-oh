@@ -95,12 +95,11 @@ export const methodsStore = {
                         }
                     })
                     store.cards = this.formatCardList(CardsTmp)
-                    store.totalCards = CardsTmp.length
+                    store.totalCards = store.cards.length
                 })
                 .catch((error) => {
                     store.cards = [];
                     store.totalCards = 'No cards found';
-                    console.log(error);
                 })
                 .finally(() => {
                     store.isLoading = false
