@@ -15,3 +15,8 @@ $monster-ritual-background-color: #6fbae6;
 
 
 $basefont: "Roboto", sans-serif;
+
+body {
+    height: 100vh;
+    background-color: $main-color !important;
+}

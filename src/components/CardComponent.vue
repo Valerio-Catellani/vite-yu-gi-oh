@@ -1,5 +1,5 @@
 <template>
-    <div :id="card.id" class="personal-card m-2 shadow p-1" :class="card.frameType">
+    <div :id="card.id" class="personal-card rounded-1 m-2 p-1" :class="card.frameType">
         <div class="" :class="card.frameType === 'xyz' || card.frameType === 'link' ? 'text-white' : ''">
             <h3 class="text-center fs-5 py-1 mb-0">{{ card.name }}</h3>
             <p class="text-center  border-black border-bottom shadow mb-1">{{ card.type }} ({{ card.race }})</p>
@@ -32,7 +32,7 @@
                                 formatText(card.frameType)
                             }}</span></p>
                     <p v-if="card.archetype" class="mb-0"><span class="fw-bold">ArcheType: </span> <span
-                            class="fs-italic">{{ card.archetype }}</span></p>
+                            class="fst-italic">{{ card.archetype }}</span></p>
                 </div>
                 <div class="card-body mt-2">
                     <span role="button" :class="marketIsOpen ? 'text-success' : 'text-white'"
@@ -140,6 +140,8 @@ export default {
 .personal-card {
     max-width: 400px;
     border: solid 1px black;
+    box-shadow: white 2px 2px 5px 1px;
+
 
     .img-container {
         min-width: 50%;
